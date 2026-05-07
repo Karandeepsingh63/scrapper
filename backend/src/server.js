@@ -9,6 +9,7 @@ const Story = require("./models/Story");
 const authRoutes = require("./routes/authRoutes");
 const scrapeRoutes = require("./routes/scrapeRoutes");
 const scrapeStories = require("./services/scraperService");
+const storyRoutes = require("./routes/storyRoutes");
 
 // Connect to MongoDB
 const startServer = async () => {
@@ -38,5 +39,6 @@ app.get("/",(req,res)=>{
 
 app.use("/api/auth", authRoutes);
 app.use("/api/scrape", scrapeRoutes);
+app.use("/api/stories", storyRoutes);
 
 const PORT=process.env.PORT || 5000;                
