@@ -3,6 +3,8 @@ const connectDB=require('./config/db');
 const cors=require('cors');
 require('dotenv').config();
 const app=express();
+const User = require("./models/User");
+const Story = require("./models/Story");
 
 // Connect to MongoDB
 connectDB();
