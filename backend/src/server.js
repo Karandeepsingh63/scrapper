@@ -38,5 +38,11 @@ app.use("/api/auth", authRoutes);
 app.use("/api/scrape", scrapeRoutes);
 app.use("/api/stories", storyRoutes);
 
+app.use(express.static(path.join(__dirname, "dist")));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "dist", "index.html"));
+});
+
 
 const PORT=process.env.PORT || 5000;                
