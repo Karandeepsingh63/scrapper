@@ -39,7 +39,14 @@ const Home = () => {
 
 
   if (loading) {
-    return <h2>Loading...</h2>;
+    return <div
+  style={{
+    textAlign: "center",
+    marginTop: "50px",
+  }}
+>
+  <h2>Loading stories...</h2>
+</div>;
   }
 
   return (
@@ -51,7 +58,7 @@ const Home = () => {
       }}
     >
 
-      <h1>Hacker News Stories</h1>
+      <h1>News Stories</h1>
       <Link to="/bookmarks">
   View Bookmarks
 </Link>

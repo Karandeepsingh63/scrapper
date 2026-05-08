@@ -4,14 +4,16 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Bookmarks from "./pages/Bookmarks";
-
+import Navbar from "./components/Navbar";
 import ProtectedRoute from "./routes/ProtectedRoute";
 
 function App() {
   return (
     <BrowserRouter>
+     <Navbar />
 
       <Routes>
+       
 
         <Route path="/" element={<Home />} />
 
