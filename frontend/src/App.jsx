@@ -12,6 +12,7 @@ function App() {
   return (
     <BrowserRouter>
       <div className="app-shell">
+        
         <Navbar />
         <main className="app-main">
           <Routes>
@@ -30,7 +31,9 @@ function App() {
         </main>
         <Footer />
       </div>
+      
     </BrowserRouter>
+    
   );
 }
 
