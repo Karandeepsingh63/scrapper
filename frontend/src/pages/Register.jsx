@@ -24,7 +24,7 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await API.post("/auth/register", formData);
+      const response = await API.post("/api/auth/register", formData);
       login(response.data.user, response.data.token);
       navigate("/");
     } catch (error) {
@@ -94,4 +94,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default Register;

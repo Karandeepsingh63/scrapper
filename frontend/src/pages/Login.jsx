@@ -23,7 +23,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await API.post("/auth/login", formData);
+      const response = await API.post("/api/auth/login", formData);
       login(response.data.user, response.data.token);
       navigate("/");
     } catch (error) {
@@ -80,4 +80,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Login;

@@ -12,7 +12,7 @@ const Bookmarks = () => {
 
   const fetchBookmarks = async () => {
     try {
-      const response = await API.get("/stories/bookmarks/all", {
+      const response = await API.get("/api/stories/bookmarks/all", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
