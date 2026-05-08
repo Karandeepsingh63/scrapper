@@ -11,7 +11,7 @@ const Home = () => {
 
   const fetchStories = async () => {
     try {
-      const response = await API.get("/stories");
+     const response = await API.get("/api/stories");
       setStories(response.data.stories);
     } catch (error) {
       console.log(error);
