@@ -19,12 +19,7 @@ const PORT = process.env.PORT || 5000;
 
 app.use(cors());
 app.use(express.json());
-app.use(
-  cors({
-    origin: "https://scrapper-1-tdl7.onrender.com/api/stories",
-    credentials: true,
-  })
-);
+
 
 
 app.use("/api/auth", authRoutes);
@@ -36,12 +31,6 @@ app.get("/api", (req, res) => {
   res.send("API is running...");
 });
 
-
-app.use(express.static(path.join(__dirname, "../frontend/dist")));
-
-app.use((req, res) => {
-  res.sendFile(path.join(__dirname, "../frontend/dist", "index.html"));
-});
 
 
 const startServer = async () => {
