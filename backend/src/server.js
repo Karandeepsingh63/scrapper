@@ -5,7 +5,6 @@ require('dotenv').config();
 const app=express();
 const User = require("./models/User");
 const Story = require("./models/Story");
-
 const authRoutes = require("./routes/authRoutes");
 const scrapeRoutes = require("./routes/scrapeRoutes");
 const scrapeStories = require("./services/scraperService");
@@ -15,8 +14,6 @@ const storyRoutes = require("./routes/storyRoutes");
 const startServer = async () => {
   try {
     await connectDB();
-
-    // Run scraper automatically
     await scrapeStories();
 
     app.listen(PORT, () => {

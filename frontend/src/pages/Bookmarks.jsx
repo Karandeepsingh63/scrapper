@@ -1,76 +1,70 @@
 import { useEffect, useState } from "react";
-
 import API from "../api/axios";
-
 import { useAuth } from "../context/AuthContext";
-
 import StoryCard from "../components/StoryCard";
+import "./Home.css";
 
 const Bookmarks = () => {
-
   const { token } = useAuth();
-
   const [bookmarks, setBookmarks] = useState([]);
-
   const [loading, setLoading] = useState(true);
 
 
-  // FETCH BOOKMARKS
   const fetchBookmarks = async () => {
     try {
-
-      const response = await API.get(
-        "/stories/bookmarks/all",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
+      const response = await API.get("/stories/bookmarks/all", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       setBookmarks(response.data);
-
     } catch (error) {
       console.log(error);
-
     } finally {
       setLoading(false);
     }
   };
 
-
   useEffect(() => {
     fetchBookmarks();
   }, []);
 
-
   if (loading) {
-    return <h2>Loading...</h2>;
+    return (
+      <div className="container loading-container">
+        <span className="loader"></span>
+        <h2>Retrieving your bookmarks...</h2>
+      </div>
+    );
   }
 
   return (
-    <div
-      style={{
-        width: "80%",
-        margin: "auto",
-        paddingTop: "20px",
-      }}
-    >
+    <div className="home-page" style={{ paddingTop: "2rem" }}>
+      <div className="container">
+        <div className="section-header">
+          <h2 className="section-title">Your Bookmarks</h2>
+          <p className="section-subtitle" style={{ margin: 0 }}>
+            {bookmarks.length} stories saved
+          </p>
+        </div>
 
-      <h1>Bookmarked Stories</h1>
-
-      {bookmarks.length === 0 ? (
-        <h2>No Bookmarks Found</h2>
-      ) : (
-        bookmarks.map((story) => (
-          <StoryCard
-            key={story._id}
-            story={story}
-            refreshStories={fetchBookmarks}
-          />
-        ))
-      )}
-
+        {bookmarks.length === 0 ? (
+          <div className="empty-state glass">
+            <h2>No Bookmarks Yet</h2>
+            <p>Stories you bookmark will appear here for quick access.</p>
+          </div>
+        ) : (
+          <div className="stories-grid">
+            {bookmarks.map((story) => (
+              <StoryCard
+                key={story._id}
+                story={story}
+                refreshStories={fetchBookmarks}
+              />
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 };

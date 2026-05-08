@@ -1,97 +1,86 @@
 import { useEffect, useState } from "react";
-
 import API from "../api/axios";
-
 import StoryCard from "../components/StoryCard";
-
 import { useAuth } from "../context/AuthContext";
-import { Link } from "react-router-dom";
+import "./Home.css";
 
 const Home = () => {
-
-  const { user, logout } = useAuth();
-
+  const { user } = useAuth();
   const [stories, setStories] = useState([]);
-
   const [loading, setLoading] = useState(true);
 
-
-  // FETCH STORIES
   const fetchStories = async () => {
     try {
-
       const response = await API.get("/stories");
-
       setStories(response.data.stories);
-
     } catch (error) {
       console.log(error);
-
     } finally {
       setLoading(false);
     }
   };
 
-
   useEffect(() => {
     fetchStories();
   }, []);
 
-
   if (loading) {
-    return <div
-  style={{
-    textAlign: "center",
-    marginTop: "50px",
-  }}
->
-  <h2>Loading stories...</h2>
-</div>;
+    return (
+      <div className="container loading-container">
+        <span className="loader"></span>
+        <h2>Discovering latest stories...</h2>
+      </div>
+    );
   }
 
   return (
-    <div
-      style={{
-        width: "80%",
-        margin: "auto",
-        paddingTop: "20px",
-      }}
-    >
-
-      <h1>News Stories</h1>
-      <Link to="/bookmarks">
-  View Bookmarks
-</Link>
-
-      {user && (
-        <div style={{ marginBottom: "20px" }}>
-
-          <p>
-            Welcome {user.name}
+    <div className="page page-home">
+      <section className="hero glass-card">
+        <div className="container hero-inner">
+          <div className="hero-badge">Latest Technology Stories</div>
+          <h1 className="hero-title">Stay ahead of the curve</h1>
+          <p className="hero-subtitle">
+            Scrapper brings curated tech insights from trusted sources into one fast, bookmarkable feed.
           </p>
 
-          <button onClick={logout}>
-            Logout
-          </button>
-
+          {!user && (
+            <div className="hero-cta">
+              <button className="btn btn-primary btn-lg" type="button">
+                Join the Community
+              </button>
+            </div>
+          )}
         </div>
-      )}
+      </section>
 
-      {stories.length === 0 ? (
-        <h2>No Stories Found</h2>
-      ) : (
-        stories.map((story) => (
-          <StoryCard
-            key={story._id}
-            story={story}
-            refreshStories={fetchStories}
-          />
-        ))
-      )}
-      
+      <div className="container">
+        <div className="page-section-header">
+          <div>
+            <h2 className="page-section-title">Trending now</h2>
+            <p className="page-section-subtitle">Fresh picks from the scraper feed</p>
+          </div>
+        </div>
 
+        {stories.length === 0 ? (
+          <div className="empty-state glass-card">
+            <h2>No stories found</h2>
+            <p>Check back later for fresh updates.</p>
+          </div>
+        ) : (
+          <div className="stories-grid">
+            {stories.map((story) => (
+              <StoryCard
+                key={story._id}
+                story={story}
+                refreshStories={fetchStories}
+              />
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
+
 };
 
 export default Home;
