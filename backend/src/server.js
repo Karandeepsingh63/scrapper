@@ -41,4 +41,5 @@ app.use("/api/auth", authRoutes);
 app.use("/api/scrape", scrapeRoutes);
 app.use("/api/stories", storyRoutes);
 
+
 const PORT=process.env.PORT || 5000;                

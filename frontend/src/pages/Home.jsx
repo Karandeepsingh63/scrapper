@@ -5,6 +5,7 @@ import API from "../api/axios";
 import StoryCard from "../components/StoryCard";
 
 import { useAuth } from "../context/AuthContext";
+import { Link } from "react-router-dom";
 
 const Home = () => {
 
@@ -51,6 +52,9 @@ const Home = () => {
     >
 
       <h1>Hacker News Stories</h1>
+      <Link to="/bookmarks">
+  View Bookmarks
+</Link>
 
       {user && (
         <div style={{ marginBottom: "20px" }}>
@@ -77,6 +81,7 @@ const Home = () => {
           />
         ))
       )}
+      
 
     </div>
   );
